@@ -498,3 +498,196 @@ public class NumberManipulator
 }
 ```
 
+## C#可空类型（Nullable）
+
+可空类型就是允许值类型（如 int、bool、DateTime）可以有一个没有值的状态（即 null）。
+可空类型可以表示其基础值类型的正常范围内的值，再加上一个 null 值。
+可空类型声明：
+`<data_type>? <variable_name> = null;`
+
+?：可空类型标识符，让值类型可以为NULL
+??：空合并运算符，当变量为NULL时提供默认值
+
+*NUll合并运算符(??)*:
+空合并运算符（??）用于为 可空类型 或 引用类型 定义一个默认值。
+当左侧的值为 null 时，?? 返回右侧的默认值。
+基本语法：
+`<value> ?? <default_value>`
+如果 value 为 null，则该表达式返回 default_value，否则返回 value。
+
+可空类型的常用属性和方法：  
+
+|成员|说明|示例|
+|---|---|---|
+|.HasValue|判断变量是否有值。如果值为 null，则为 false，否则为 true。|`int? a = null; Console.WriteLine(a.HasValue);`|
+|.Value|获取实际值。如果 HasValue 为 true，则返回 Value 属性的值，否则为 null。|`int? a = 10; Console.WriteLine(a.Value);`|
+|.GetValueOrDefault()|获取值或默认值（默认 0）|`int? a = 10; Console.WriteLine(a.GetValueOrDefault());`|
+
+实际应用场景：在处理数据库或外部数据时，可空类型尤其常用
+
+## C#数组
+
+数组是一个存储相同类型元素的固定大小的顺序集合。数组是用来存储数据的集合，通常认为数组是一个同一类型变量的集合。
+
+声明数组：
+`datatype[] arrayName;`
+
+创建数组：
+`arrayName = new datatype[arraySize];`
+
+初始化数组：
+`datatype[] arrayName = new datatype[] {value0, value1, ..., valueN};`
+或
+`datatype[] arrayName = {value0, value1, ..., valueN};`
+
+访问数组元素：
+`datetype value = arrayName[index];`
+
+### 使用foreach循环
+
+我们可以使用for循环来访问每个数组元素，也可以使用foreach语句来遍历数组。
+foreach 语句用于遍历数组中的每个元素，不需要通过索引来访问数组元素。
+
+```C#
+using System;
+
+namespace ArrayApplication
+{
+   class MyArray
+   {
+      static void Main(string[] args)
+      {
+         int []  n = new int[10]; /* n 是一个带有 10 个整数的数组 */
+
+
+         /* 初始化数组 n 中的元素 */         
+         for ( int i = 0; i < 10; i++ )
+         {
+            n[i] = i + 100;
+         }
+
+         /* 输出每个数组元素的值 */
+         foreach (int j in n )
+         {
+            int i = j-100;
+            Console.WriteLine("Element[{0}] = {1}", i, j);
+         }
+         Console.ReadKey();
+      }
+   }
+}
+```
+
+### 数组细节
+
+|概念|描述|
+|---|---|
+|多维数组|多维数组最简单的形式是二维数组。一个二维数组，在本质上，是一个一维数组的列表。|
+|交错数组|交错数组是数组的数组。交错数组是一维数组。|
+|传递数组给函数|C# 允许您将一个数组作为参数传递给函数。|
+|参数数组|C# 提供了一种特殊类型的参数，叫做参数数组。参数数组使用数组来传递可变数量的参数。|
+|Array类|C# 数组类是 System.Array 类的派生类。Array 类提供了各种用于数组的属性和方法。|
+
+
+## C#字符串
+字符串是用于存储一系列字符的。字符串的声明方式与其他基本数据类型相似，但是字符串被封装在 `System.String` 类中。
+
+创建string对象：
+- 通过给string变量指定一个字符串
+- 通过使用string类构造函数
+- 通过使用字符串串联运算符（+）
+- 通过检索属性或调用一个返回字符串的方法
+- 通过格式化方法来转换一个值或对象为它的字符串表示形式
+
+```C#
+using System;
+
+namespace StringApplication
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           //字符串，字符串连接
+            string fname, lname;
+            fname = "Rowan";
+            lname = "Atkinson";
+
+            string fullname = fname + lname;
+            Console.WriteLine("Full Name: {0}", fullname);
+
+            //通过使用 string 构造函数
+            char[] letters = { 'H', 'e', 'l', 'l','o' };
+            string greetings = new string(letters);
+            Console.WriteLine("Greetings: {0}", greetings);
+
+            //方法返回字符串
+            string[] sarray = { "Hello", "From", "Tutorials", "Point" };
+            string message = String.Join(" ", sarray);
+            Console.WriteLine("Message: {0}", message);
+
+            //用于转化值的格式化方法
+            DateTime waiting = new DateTime(2012, 10, 10, 17, 58, 1);
+            string chat = String.Format("Message sent at {0:t} on {0:D}", 
+            waiting);
+            Console.WriteLine("Message: {0}", chat);
+            Console.ReadKey() ;
+        }
+    }
+}
+```
+
+### string类的属性
+
+|属性|描述|
+|---|---|
+|Chars|获取此字符串的 Unicode 字符数组。|
+|Length|获取当前 String 对象中的字符数，不包含末尾的空字符。|
+|IsNullOrEmpty|指示指定的字符串是否为 null 或者是否为一个空的字符串。|
+
+### string类的方法
+
+|方法|描述|
+|---|---|
+|public static int Compare( string strA, string strB, bool ignoreCase )|比较两个指定的 string 对象，并返回一个表示它们在排列顺序中相对位置的整数。但是，如果布尔参数为真时，该方法不区分大小写。|
+|public static string Concat( string str0, string str1 )|连接两个 string 对象。|
+|public bool Contains( string value )|返回一个表示指定 string 对象是否出现在字符串中的值。|
+|public static string Copy( string str )|创建一个与指定字符串具有相同值的新的 String 对象。|
+|public void CopyTo( int sourceIndex, char[] destination, int destinationIndex, int count )|从 string 对象的指定位置开始复制指定数量的字符到 Unicode 字符数组中的指定位置。|
+|public bool EndsWith( string value )|判断字符串实例是否以指定的字符串结尾。|
+|public bool Equals( string value )|判断当前的 string 对象是否与指定的 string 对象具有相同的值。|
+|public static string Format( string format, Object arg0 )|把指定字符串中一个或多个格式项替换为指定对象的字符串表示形式。|
+|public int IndexOf( char value )|返回指定 Unicode 字符在当前字符串中第一次出现的索引，索引从 0 开始。|
+|public int IndexOf( string value )|返回指定字符串在当前字符串中第一次出现的索引，索引从 0 开始。|
+|public int IndexOf( char value, int startIndex )|返回指定 Unicode 字符从该字符串中指定字符位置开始搜索第一次出现的索引，索引从 0 开始。|
+|public int IndexOf( string value, int startIndex )|返回指定字符串从该字符串中指定字符位置开始搜索第一次出现的索引，索引从 0 开始。|
+|public int IndexOfAny( char[] anyOf )|返回某一个指定的 Unicode 字符数组中任意字符在当前字符串中第一次出现的索引，索引从 0 开始。|
+|public int IndexOfAny( char[] anyOf, int startIndex )|返回某一个指定的 Unicode 字符数组中任意字符在当前字符串中从指定字符位置开始搜索第一次出现的索引，索引从 0 开始。|
+|public static string Join( string separator, string[] value )|连接一个字符串数组中的所有元素，使用指定的分隔符分隔每个元素。|
+|public static string Join( string separator, string[] value, int startIndex, int count )|连接一个字符串数组中的指定位置开始的指定元素，使用指定的分隔符分隔每个元素。|
+|public int LastIndexOf( char value )|返回指定 Unicode 字符在当前字符串中最后一次出现的索引位置，索引从 0 开始。|
+|public int LastIndexOf( string value )|返回指定字符串在当前字符串中最后一次出现的索引位置，索引从 0 开始。|
+|public string Remove( int startIndex, int count )|移除当前实例中的子字符串。|
+|public string Remove( int startIndex, int count )|移除当前实例中的子字符串。|
+|public string Replace( char oldChar, char newChar )|把当前字符串中，所有指定的 Unicode 字符替换为新指定的 Unicode 字符，并返回替换后的字符串。|
+|public string Replace( string oldValue, string newValue )|把当前字符串中，所有指定的字符串替换为新指定的字符串，并返回替换后的字符串。|
+|public string[] Split( params char[] separator )|返回一个字符串数组，包含当前的 string 对象中的子字符串，子字符串是使用指定的 Unicode 字符数组中的元素进行分隔的。|
+|public string[] Split( char[] separator, int count )|返回一个字符串数组，包含当前的 string 对象中的子字符串，子字符串是使用指定的 Unicode 字符数组中的元素进行分隔的。|
+|public bool StartsWith( string value )|判断字符串实例是否以指定的字符串开始。|
+|public char[] ToCharArray()|返回一个带有当前 string 对象中所有字符的 Unicode 字符数组。|
+|public char[] ToCharArray( int startIndex, int length )|返回一个带有当前 string 对象中所有字符的 Unicode 字符数组，从指定的索引开始，直到指定的长度为止。|
+|public string ToLower()|把字符串转换为小写并返回。|
+|public string ToUpper()|把字符串转换为大写并返回。|
+|public string Trim()|移除当前 String 对象中的所有前导空白字符和后置空白字符。|
+
+## C# 结构体
+
+结构体是一种值类型，用于组织和存储相关数据，这样使得一个单一变量可以存储各种数据类型的相关数据。
+
+### 定义结构体
+
+为了定义一个结构体，您必须使用 struct 语句。
+struct 结构体名称
+{
+
+};
